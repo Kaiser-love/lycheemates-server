@@ -1,0 +1,54 @@
+plugins {
+    id 'java-library'
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+}
+apply plugin: 'io.spring.dependency-management'
+apply from: "$rootDir/script/copy_framework.gradle"
+
+group = 'com'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+ext {
+    server_name = "user-server"
+    server_port = 9999
+}
+
+
+dependencies {
+    implementation('io.springfox:springfox-swagger2:2.9.2')
+    implementation('io.springfox:springfox-swagger-ui:2.9.2')
+    implementation('org.springframework.boot:spring-boot-starter-aop')
+    implementation('org.springframework.boot:spring-boot-starter-cache')
+    implementation group: 'redis.clients', name: 'jedis', version: '2.9.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-redis', version: '1.3.5.RELEASE'
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.hibernate:hibernate-core:5.3.5.Final')
+    implementation 'com.alibaba:druid:1.1.20'
+    runtime('mysql:mysql-connector-java')
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.51'
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    api project(':libs:network')
+    // jwt
+    implementation("com.auth0:java-jwt:3.2.0")
+    // mybatis-plus
+    implementation("com.baomidou:mybatis-plus-boot-starter:3.2.0")
+    // shiro
+    implementation("org.apache.shiro:shiro-spring:1.4.0")
+    implementation("org.apache.shiro:shiro-core:1.4.0")
+    implementation("io.jsonwebtoken:jjwt:0.9.0")
+    // 主动推送
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
+    // 工具类
+    implementation 'cn.hutool:hutool-all:5.0.3'
+
+}
+
+// 自定义resource文件夹
+sourceSets {
+    main {
+        resources.srcDirs = ['src/main/resources']
+    }
+}
+
+

@@ -1,0 +1,84 @@
+server:
+  port: 9999
+ServerIp: localhost
+swagger:
+  enable: true
+spring:
+    # 时间戳设置
+  jackson:
+    date-format: yyyy/MM/dd HH:mm
+    # default-property-inclusion: non_null
+  datasource:
+    username: root
+    password: 123
+    druid:
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      max-pool-prepared-statement-per-connection-size: 20
+      min-idle: 2
+      useGlobalDataSourceStat: true
+      max-active: 30
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      validation-query: SELECT 1 FROM DUAL
+      filters: wall
+      max-wait: 60000
+      WebStatFilter:
+        exclusions: \*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*
+      filter:
+        commons-log:
+          enabled: true
+      test-on-borrow: false
+      stat-view-servlet:
+        reset-enable: false
+      pool-prepared-statements: true
+      max-evictable-idle-time-millis: 3000000
+      initial-size: 2
+      min-evictable-idle-time-millis: 300000
+      test-on-return: false
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${ServerIp}:3306/lycheemates?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2b8
+  servlet:
+    multipart:
+      max-request-size: 1000MB
+      max-file-size: 1000MB
+  redis:
+    port: 6379
+    host: localhost
+    jedis:
+      pool:
+        #最大连接数
+        max-active: 8
+        #最大阻塞等待时间(负数表示没限制)
+        max-wait: -1
+        #最大空闲
+        max-idle: 8
+        #最小空闲
+        min-idle: 0
+      #连接超时时间
+    timeout: 10000
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  typeAliasesPackage: com.wdy.cheemate.entity
+
+logging:
+  level:
+    com.alibaba: WARN
+    com.ronghui: TRACE
+    c.a: WARN
+    s.d: WARN
+    org.apache: WARN
+    org.thymeleaf: WARN
+    org.hibernate: ERROR
+    org.springframework: WARN
+    root: info
+    sun: WARN
+    o.apache: WARN
+
+zimg:
+  uriTemp: http://47.107.139.6:4869/%s
+  zimgUpload: http://47.107.139.6:4869/upload
+  djangoUrl: http://123.206.73.65:8001/upload/

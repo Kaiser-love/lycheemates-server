@@ -1,0 +1,5 @@
+rootProject.name = 'cheemate-parent'
+include 'libs:network'
+include 'service'
+//include 'file-service'
+//include 'static-service'
